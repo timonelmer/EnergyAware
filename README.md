@@ -10,7 +10,7 @@
 # EnergyAware
 `EnergyAware` is R package that allows you to estimate the CPU's energy use of R tasks. The aim of applying `EnergyAware` is that users become more aware of how much energy (sophisticated) computations in R require, in particular those running on external servers (e.g., supercomputers).
 
-# Installation
+## Installation
 
 The latest version of `EnergyAware` can be installed from source using `devtools`:
 
@@ -18,7 +18,7 @@ The latest version of `EnergyAware` can be installed from source using `devtools
 devtools::install_github("timonelmer/EnergyAware")
 ```
 
-# Setup 
+## Setup 
 
 `EnergyAware` is a very simple package that computes the energy consumption of a particular R task based on the CPU's power consumption (i.e., Thermal Design Power; TDP) over its active timeperiod. For this, you need to let R know what CPU model you are running the R task on or how much TDP your CPU model uses. This can be achieved in two ways:
 
@@ -44,6 +44,16 @@ cpu.info <- setup_cpu(tdp = 47, n.cores = 4)
 ```
 
 
-# Example
+## Example
 
+```r
+# setup
+cpu.info <- setup_cpu()
+# time recording
+start.time <- proc.time()
+# R task
+profvis::pause(6000) # uses one CPU to 100% for 100 minutes
+# evaluation
+energy_evaluate(cpu.info, start.time, cores = 1)
 
+```
